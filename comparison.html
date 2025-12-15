@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIR Fee Comparison</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 60vh;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .nav-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="nav-link">← Back to Calculator</a>
+            <h1>RIR Fee Comparison (IPv4)</h1>
+            <p>Comparing annual fees across Regional Internet Registries (/24 to /10).</p>
+        </header>
+
+        <div class="card">
+            <div class="chart-container">
+                <canvas id="feeChart"></canvas>
+            </div>
+            <div style="margin-top: 1rem; text-align: center; font-size: 0.9rem; color: var(--text-light);">
+                <p><strong>Note:</strong> Fees are estimated in USD for 2025/2026. Exchange rates: 1 EUR = $1.175, 1 AUD = $0.6646.</p>
+                <p>RIPE (Model B), APNIC (Member), ARIN (RSP), LACNIC (ISP).</p>
+            </div>
+        </div>
+    </div>
+    <script src="comparison.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIPE Model B Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RIPE Model B Calculator</h1>
+            <p>Calculate your annual fee based on IP holdings.</p>
+            <a href="comparison.html" class="btn-text" style="font-size: 1rem; margin-top: 0.5rem; display: inline-block;">View RIR Fee Comparison Chart →</a>
+        </header>
+
+        <div class="main-grid">
+            <!-- IPv4 Section -->
+            <div class="card ipv4-card">
+                <h2>IPv4 Resources</h2>
+                <div class="input-group">
+                    <label>Add Allocation (Prefix Size)</label>
+                    <div class="add-resource">
+                        <select id="ipv4-prefix">
+                            <option value="24">/24</option>
+                            <option value="23">/23</option>
+                            <option value="22">/22</option>
+                            <option value="21">/21</option>
+                            <option value="20">/20</option>
+                            <option value="19">/19</option>
+                            <option value="18">/18</option>
+                            <option value="17">/17</option>
+                            <option value="16">/16</option>
+                        </select>
+                        <button id="add-ipv4" class="btn-add">Add</button>
+                    </div>
+                </div>
+                <div id="ipv4-list" class="resource-list"></div>
+                
+                <div class="stats">
+                    <div class="stat-row">
+                        <span>Total /24s:</span>
+                        <span id="ipv4-total-24s" class="value">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Addresses:</span>
+                        <span id="ipv4-addresses" class="value">0</span>
+                    </div>
+                    <div class="stat-row highlight">
+                        <span>IPv4 Fee:</span>
+                        <span id="ipv4-fee" class="value">€0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IPv6 Section -->
+            <div class="card ipv6-card">
+                <h2>IPv6 Resources</h2>
+                <div class="input-group">
+                    <label>Add Allocation (Prefix Size)</label>
+                    <div class="add-resource">
+                        <select id="ipv6-prefix">
+                            <option value="32">/32</option>
+                            <option value="31">/31</option>
+                            <option value="30">/30</option>
+                            <option value="29">/29</option>
+                            <option value="28">/28</option>
+                            <option value="27">/27</option>
+                            <option value="26">/26</option>
+                            <option value="25">/25</option>
+                            <option value="24">/24</option>
+                        </select>
+                        <button id="add-ipv6" class="btn-add">Add</button>
+                    </div>
+                </div>
+                <div id="ipv6-list" class="resource-list"></div>
+
+                <div class="stats">
+                    <div class="stat-row">
+                        <span>Total /32s:</span>
+                        <span id="ipv6-total-32s" class="value">0</span>
+                    </div>
+                    <div class="stat-row highlight">
+                        <span>IPv6 Fee:</span>
+                        <span id="ipv6-fee" class="value">€0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-section">
+            <div class="card result-card">
+                <h2>Annual Fee</h2>
+                <div class="final-result">
+                    <span class="label">You Pay (Max of IPv4/IPv6):</span>
+                    <span id="final-fee" class="value">€500</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div class="settings-section">
+            <button id="toggle-settings" class="btn-text">Show Configuration Parameters</button>
+            <div id="settings-panel" class="settings-panel hidden">
+                <h3>Calculation Parameters</h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label>Base Fee</label>
+                        <input type="number" id="base-fee">
+                    </div>
+                    <div class="setting-item">
+                        <label>Factor 1</label>
+                        <input type="number" id="factor1">
+                    </div>
+                    <div class="setting-item">
+                        <label>Factor 2</label>
+                        <input type="number" id="factor2">
+                    </div>
+                </div>
+                <button id="reset-params" class="btn-secondary">Reset Defaults</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "constants": {
+    "baseFee": 500,
+    "factor1": 352,
+    "factor2": 9.7
+  },
+  "ipv4": {
+    "offset": 7,
+    "min_address_threshold": 255
+  },
+  "ipv6": {
+    "small_allocation_threshold": 15,
+    "small_allocation_score": 1,
+    "large_allocation_offset": 2
+  }
+}
