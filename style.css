@@ -41,6 +41,13 @@ header p {
     font-size: 1.1rem;
 }
 
+.disclaimer {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
 .main-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
