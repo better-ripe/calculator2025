@@ -7,6 +7,12 @@ const RATES = {
     AUD_USD: 0.6646
 };
 
+// RIPE Old Fee (2025): flat fee in EUR
+const RIPE_OLD_2025 = {
+    feeEUR: 1800,
+    calculate: () => RIPE_OLD_2025.feeEUR * RATES.EUR_USD
+};
+
 // RIPE Model B Logic (from script.js/logic.json)
 // Fee = Base + (F1 * Score) + (F2 * Score^2)
 // Score = log2(Addresses) - 7
@@ -19,6 +25,34 @@ const RIPE = {
         const score = Math.log2(addresses) - 7;
         const feeEUR = RIPE.base + (RIPE.f1 * score) + (RIPE.f2 * Math.pow(score, 2));
         return feeEUR * RATES.EUR_USD;
+    }
+};
+
+// RIPE Model A (categories by IPv4 CIDR, from Model_A_Calculator_Categories.xlsx)
+const RIPE_MODEL_A = {
+    categories: [
+        { minPrefix: 24, maxPrefix: 23, feeEUR: 873 },
+        { minPrefix: 23, maxPrefix: 22, feeEUR: 1268 },
+        { minPrefix: 22, maxPrefix: 21, feeEUR: 1687 },
+        { minPrefix: 21, maxPrefix: 20, feeEUR: 2128 },
+        { minPrefix: 20, maxPrefix: 19, feeEUR: 2593 },
+        { minPrefix: 19, maxPrefix: 18, feeEUR: 3080 },
+        { minPrefix: 18, maxPrefix: 17, feeEUR: 3591 },
+        { minPrefix: 17, maxPrefix: 16, feeEUR: 4124 },
+        { minPrefix: 16, maxPrefix: 15, feeEUR: 4681 },
+        { minPrefix: 15, maxPrefix: 14, feeEUR: 5260 },
+        { minPrefix: 14, maxPrefix: 13, feeEUR: 5863 },
+        { minPrefix: 13, maxPrefix: 12, feeEUR: 6488 },
+        { minPrefix: 12, maxPrefix: 11, feeEUR: 7137 },
+        { minPrefix: 11, maxPrefix: 10, feeEUR: 7808 },
+        { minPrefix: 10, maxPrefix: 9, feeEUR: 8503 }
+    ],
+    calculate: (prefix) => {
+        const entry = RIPE_MODEL_A.categories.find(({ minPrefix, maxPrefix }) => (
+            prefix <= minPrefix && prefix >= maxPrefix
+        ));
+        if (!entry) return null;
+        return entry.feeEUR * RATES.EUR_USD;
     }
 };
 
@@ -108,11 +142,26 @@ const data = {
     labels: prefixes.map(p => `/${p}`),
     datasets: [
         {
+            label: 'RIPE (Old Fee 2025)',
+            data: prefixes.map(() => RIPE_OLD_2025.calculate()),
+            borderColor: '#6c757d', // Gray
+            backgroundColor: '#6c757d',
+            borderDash: [6, 6],
+            tension: 0.1
+        },
+        {
             label: 'RIPE (Model B)',
             data: prefixes.map(p => RIPE.calculate(p)),
             borderColor: '#007bff', // Primary Blue
             backgroundColor: '#007bff',
             tension: 0.1
+        },
+        {
+            label: 'RIPE (Model A)',
+            data: prefixes.map(p => RIPE_MODEL_A.calculate(p)),
+            borderColor: '#17a2b8', // Teal
+            backgroundColor: '#17a2b8',
+            stepped: true
         },
         {
             label: 'APNIC',
